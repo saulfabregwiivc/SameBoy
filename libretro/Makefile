@@ -339,7 +339,7 @@ BIN ?= $(abspath $(CORE_DIR)/libretro)
 else
 BIN ?= $(abspath $(CORE_DIR))
 endif
-TARGET := $(BIN)/$(TARGET)
+TARGET := $(TARGET)
 
 
 # To force use of the Unix version instead of the Windows version
@@ -379,7 +379,7 @@ CFLAGS   += -D__LIBRETRO__ $(fpic) $(INCFLAGS) -std=gnu11 -D_GNU_SOURCE -D_USE_M
 
 all: $(TARGET)
 
-$(CORE_DIR)/libretro/%_boot.c: $(BOOTROMS_DIR)/%_boot.bin
+$(CORE_DIR)/libretro/%_boot.c: $(CORE_DIR)/BootROMs/prebuilt/%_boot.bin
 	echo "/* AUTO-GENERATED */" > $@
 	echo "const unsigned char $(notdir $(@:%.c=%))[] = {" >> $@
 ifneq ($(findstring Haiku,$(shell uname -s)),)
@@ -392,7 +392,7 @@ endif
 	echo "};" >> $@
 	echo "const unsigned $(notdir $(@:%.c=%))_length = sizeof($(notdir $(@:%.c=%)));" >> $@
 
-$(abspath $(CORE_DIR))/build/bin/BootROMs/%_boot.bin:
+$(abspath $(CORE_DIR))/BootROMs/prebuilt/%_boot.bin:
 	$(MAKE) -C $(CORE_DIR) $(patsubst $(abspath $(CORE_DIR))/%,%,$@)
 
 $(TARGET): $(OBJECTS)
