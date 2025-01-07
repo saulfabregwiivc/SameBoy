@@ -7,12 +7,7 @@
 #include <signal.h>
 #include <stdarg.h>
 
-#ifndef WIIU
-#define AUDIO_FREQUENCY 384000
-#else
-/* Use the internal sample rate for the Wii U */
 #define AUDIO_FREQUENCY 48000
-#endif
 
 #define FRAME_RATE (0x400000 / 70224.0)
 
